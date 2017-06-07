@@ -207,21 +207,105 @@
         //Object.assign方法用来将源对象（source）的所有可枚举属性，
         //复制到目标对象（target）。第一个参数是目标对象，后面的参数都是源对象。只要有一个参数不是对象，就会抛出TypeError错误。
         let target = {
-             a: 1,
-             ab(){
-                 return (()=>{
+            a: 1,
+            ab() {
+                return (() => {
                     console.log(this.a); // 1
                     return this.a;       // 1
-                 })()
-             }
+                })()
+            }
         };
         let source1 = { c: 3 };
         console.log(Object.assign(target, source1).ab()); // 1
-        
 
+        // 默认参数
+        // 现在可以在定义函数的时候指定参数的默认值了，而不用像以前那样通过逻辑或操作符来达到目的了。
+
+        function sayHello(name) {
+            //传统的指定默认参数的方式
+            var name = name || 'hubwiz';
+            document.write('Hello ' + name);
+        }
+
+        //运用ES6的默认参数
+        function sayHello2(name = 'hubwiz') {
+            document.write(`Hello ${name}`);
+        }
+        sayHello();  //输出：Hello hubwiz
+        sayHello('汇智网');  //输出：Hello 汇智网
+        sayHello2();  //输出：Hello hubwiz
+        sayHello2('汇智网');  //输出：Hello 汇智网
+
+
+        // rest参数
+        // rest参数（形式为“...变量名”）可以称为不定参数，用于获取函数的多余参数，这样就不需要使用arguments对象了。
+        // rest参数搭配的变量是一个数组，该变量将多余的参数放入数组中。
+
+        function add(...values) {
+            let sum = 0;
+            for (var val of values) {
+                sum += val;
+            }
+            return sum;
+        }
+        // 不定参数的格式是三个句点后跟代表所有不定参数的变量名。比如以上示例中，...values 代表了所有传入add函数的参数。
+        add(1, 2, 3) // 6
+
+        // 扩展运算符（spread）是三个点（...）。它好比rest参数的逆运算，
+        // 将一个数组转为用逗号分隔的参数序列。该运算符主要用于函数调用。
+        // 它允许传递数组或者类数组直接做为函数的参数而不用通过apply。
+        function sayPeople(...people) {
+            document.write(people);  // 张三, 李四, 王五
+        }
+        sayPeople(...['张三', '李四', '王五']);
+
+
+        // 箭头函数有几个使用注意点。
+        // 函数体内的this对象，绑定定义时所在的对象，而不是使用时所在的对象。
+        // 不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
+        // 不可以使用arguments对象，该对象在函数体内不存在。
+        // 上面三点中，第一点尤其值得注意。this对象的指向是可变的，但是在箭头函数中，它是固定的。
 
 
         console.log('-----------------------------------------------------------------------------');
+
+        // 函数绑定
+        // 函数绑定运算符是并排的两个双引号（::），双引号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（即this对象），绑定到右边的函数上面。
+        // let log = ::console.log;
+        // // 等同于
+        // var log = console.log.bind(console);
+        // foo::bar;
+        // // 等同于
+        // bar.call(foo);
+        // foo::bar(...arguments);
+        // i// 等同于
+        // bar.apply(foo, arguments);
+
+
+        console.log('-----------------------------------------------------------------------------');
+
+        //数据结构Set类似于数组，但是成员的值都是唯一的，没有重复的值。
+
+        // 数组去重
+        console.log(Array.from(new Set([1, 1, 2, 2, 33, '33', 44, '44'])))
+
+
+
+        // Map 是一个“超对象”，其 key 除了可以是 String 类型之外，还可以为其他类型（如：对象）
+
+        var m = new Map();
+
+        o = { p: "Hello World" };
+
+        m.set(o, "content")
+        console.log(m)
+
+        let map = new Map([
+            [1, 'one'],
+            [2, 'two'],
+            [3, 'three'],
+        ]);
+        console.log([...map.keys()])
     </script>
 
 
