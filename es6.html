@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>es6练习</title>
+</head>
+
+<body>
+
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+
+
+
+    <script>
+        // let 作用域
+        (function f1() {
+            var a = 8;
+            let n = 5;
+            if (true) {
+                let n = 10;
+                var a = 20;
+            }
+            //console.log(n);  // 5
+            //console.log(a);  // 20
+        })();
+
+        console.log('-----------------------------------------------------------------------------');
+
+        // let for循环应用
+        let arr = [];
+        for (let i = 0; i < 10; i++) {
+            arr[i] = () => {
+                //console.log(i)
+            }
+        }
+        //console.log(arr[6]());
+
+        console.log('-----------------------------------------------------------------------------');
+
+        // [].forEach(function(value,index,array){});
+        // 或者 or
+        // [].map(function(value,index,array){});
+
+        //forEach 
+        const num = [5, 4, 3, 2, 1];
+        num.forEach((value, index, array) => {
+            //console.log(this)
+            //console.log(value)
+            //console.log(index)
+            //console.log(array[index] == value)  // true
+        })
+
+        console.log('-----------------------------------------------------------------------------');
+
+        // indexOf ，可以用来确定一个字符串是否包含在另一个字符串中。
+        // ES6又提供了三种新方法。
+        // includes()：返回布尔值，表示是否找到了参数字符串。
+        // startsWith()：返回布尔值，表示参数字符串是否在源字符串的头部。
+        // endsWith()：返回布尔值，表示参数字符串是否在源字符串的尾部。
+
+        let name = 'github';
+        // console.log(name.indexOf('b') != -1); // true
+        // console.log(name.indexOf('b') === 5); // true
+
+        let str = "Hello world!";
+
+        //  console.log(str.startsWith("Hello")) // true
+        // console.log(str.endsWith("!")) // true
+        //  console.log(str.includes("o")) // true
+
+        //这三个方法都支持第二个参数，表示开始搜索的位置。
+
+        //  console.log(str.startsWith("world", 6)) // true
+        // console.log(str.endsWith("Hello", 5))   // true
+        // console.log(str.includes("Hello", 0))   // true
+        // console.log(str.includes("Hello", 6))   // false
+
+
+        console.log('-----------------------------------------------------------------------------');
+
+        //repeat()原字符串重复
+        //repeat()返回一个新字符串，表示将原字符串重复n次。
+
+        let str2 = "x";
+        str2.repeat(3) // "xxx"
+
+        var str3 = "hello";
+        str3.repeat(2) // "hellohello"
+
+
+        console.log('-----------------------------------------------------------------------------');
+
+        // 模板字符串    用 ` 包裹   键盘esc下面的那个键  ` 这里面不用加号拼接字符串了`
+        let ping1 = '我在';
+        let ping2 = '人民广场';
+        let ping3 = '吃炸鸡';
+        let ping4 = '！！！';
+        //  console.log(ping1+ping2+ping3+ping4);
+        //  console.log(`${ping1}${ping2}${ping3}${ping4}`);
+        //  console.log('那个谁，'+`${ping1}你家门口的${ping2}悠闲的${ping3}${ping4}`); 
+        //  console.log(`那个谁，${ping1}你家门口的${ping2}悠闲的${ping3}${ping4}`);  //这里面不用加号拼接字符串了`
+
+        // 标签模板
+        let tag1 = 10;
+        let tag2 = 50;
+        console.log(tag`这是参数${tag1 + tag2}-----${tag1 * tag2}哈哈哈${tag1 / tag2}`);
+
+        // 注意
+        //console.log(tag`这是参数${tag1 + tag2}-----${tag1 * tag2}${tag1 / tag2}哈哈哈`);
+        // 这个时候数组有四个值      ${tag1 * tag2}${tag1 / tag2}  这里中间是会解析成空值
+        //  ["这是参数", "-----", "", "哈哈哈"]
+
+        function tag(s, v1, v2, v3) {
+            // console.log(s)
+            // console.log(s[0]) // 这是参数
+            // console.log(s[1]) // -----
+            // console.log(s[2]) // 哈哈哈
+            // console.log(v1)   // 60
+            // console.log(v2)   // 500
+            // console.log(v3)   // 0.2
+            return 'OK';
+        }
+
+
+        console.log('-----------------------------------------------------------------------------');
+
+        // Array.from()  把类数组转换成数组
+
+        // console.log(document.querySelectorAll('ul li').forEach(value=>console.log(value)))
+        // console.log(Array.from(document.querySelectorAll('ul li')).forEach(value=>console.log(value)))
+
+        // Array.of方法用于将一组值，转换为数组。
+
+        // Array.of(3, 11, 8) // [3,11,8]
+        // Array.of(3) // [3]
+        // Array.of(3).length // 1
+        console.log(Array.of(1, 2, 3, 4, 5))
+
+
+        //Array.find()      Array.findIndex()  找出第一个符合条件的数组成员的索引。
+        //用于找出第一个符合条件的数组成员。
+        //它的参数是一个回调函数，所有数组成员依次执行该回调函数，
+        //直到找出第一个返回值为true的成员，然后返回该成员。如果没有符合条件的成员，
+        //则返回undefined。
+        console.log([1, 4, -5, 10].find(n => n < 0)); // -5
+        console.log([1, 4, -5, 10].findIndex(n => n < 0)); // 2
+
+
+
+        console.log('-----------------------------------------------------------------------------');
+
+        //ES6提供三个新的方法：
+        // entries() keys() values()
+        //用于遍历数组。它们都返回一个遍历器，可以用for...of循环进行遍历，
+        //唯一的区别是keys()是对键名的遍历、values()是对键值的遍历，
+        //entries()是对键值对的遍历。
+
+        // for (let index of ['a', 'b'].keys()) {
+        //     document.write(index);
+        // }
+        // // 0
+        // // 1
+
+        // for (let elem of ['a', 'b'].values()) {
+        //     document.write(elem);
+        // }
+        // // 'a'
+        // // 'b'
+
+        // for (let [index, elem] of ['a', 'b'].entries()) {
+        //     document.write(index, elem);
+        // }
+        // // 0 "a"
+        // // 1 "b"
+
+        console.log('-----------------------------------------------------------------------------');
+
+        //简洁写法
+
+        function getPoint() {
+            var x = 1;
+            var y = 10;
+            return { x, y };
+        }
+        getPoint()   // {x:1, y:10}
+
+
+        let propKey = 'foo';
+
+        let obj = {
+            [propKey]: true,
+            ['a' + 'bc']: 123
+        };
+        // {foo: 1,abc:123}
+
+
+
+        //Object.assign方法用来将源对象（source）的所有可枚举属性，
+        //复制到目标对象（target）。第一个参数是目标对象，后面的参数都是源对象。只要有一个参数不是对象，就会抛出TypeError错误。
+        let target = {
+             a: 1,
+             ab(){
+                 return (()=>{
+                    console.log(this.a); // 1
+                    return this.a;       // 1
+                 })()
+             }
+        };
+        let source1 = { c: 3 };
+        console.log(Object.assign(target, source1).ab()); // 1
+        
+
+
+
+        console.log('-----------------------------------------------------------------------------');
+    </script>
+
+
+</body>
+
+</html>

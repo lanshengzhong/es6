@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        .box{
+            border-radius: 4px;
+            height: 8px;
+            width: 100px;
+            background: #ebebeb;
+            position: relative;
+        }
+        .box .line{
+            /*width: 20%;*/
+            background: orange;
+            height: 100%;
+            border-radius: 4px;
+            text-indent: 999px;
+        }
+    </style>
+</head>
+<body>
+    <div class="numb">20</div>
+    <div class="box">
+        <div class="line" data-load="50"></div>
+    </div>
+    <script type="text/javascript" src="jquery-1.8.0.min.js"></script>
+    <script type="text/javascript">
+        var step = 1,  //加载基数
+            status = 100, //加载步骤数
+            $line = $('.line'),
+            $lineVal = $line.text(),
+            $attrVal = $line.data('load'),  //进度条属性值
+            $number = parseInt($('.numb').text()),
+            $numberVal = parseFloat($number / status);  //进度数值
+ 
+        $line.css('width',$lineVal + '%');  //出事进度值
+ 
+        function watchFn() {
+            var self = $(this);
+            var showVal = $attrVal / status;
+ 
+            var numberHtml = parseInt($numberVal * step);
+ 
+            //数值小于10让其显示小数点后面一位
+            if($number < 10) {
+                numberHtml = parseFloat($numberVal * step).toFixed(1);
+            }
+ 
+            //设置进度条、进度数值的样式/内容
+            $line.css('width',showVal*step + '%');
+            $('.numb').html(numberHtml);
+ 
+            //基数大于步骤数清空定时器
+            if(step >= status) {
+                clearInterval(timer);
+            }
+ 
+            step += 1;
+        }
+        //定时器，每个步骤15毫秒
+        var timer = setInterval(watchFn, 15);
+ 
+    </script>
+</body>
+</html>
